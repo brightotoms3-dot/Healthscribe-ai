@@ -20,6 +20,7 @@ import {
   AccordionItem,
   AccordionTrigger,
 } from "@/components/ui/accordion";
+import { SymptomLikelihoodChart } from "./symptom-likelihood-chart";
 
 interface AnalysisResultsProps {
   analysis: SymptomAnalysisOutput;
@@ -98,8 +99,9 @@ export function AnalysisResults({ analysis, onStartOver }: AnalysisResultsProps)
                      <Search className="h-5 w-5" /> Symptom Analysis
                    </div>
                 </AccordionTrigger>
-              <AccordionContent className="px-6 pb-6">
-                {renderList(symptomAnalysis, 'symptom analysis')}
+              <AccordionContent className="px-6 pb-6 space-y-4">
+                <SymptomLikelihoodChart data={symptomAnalysis.possibilities} />
+                {renderList(symptomAnalysis.analysisText, 'symptom analysis')}
               </AccordionContent>
             </AccordionItem>
           </Card>

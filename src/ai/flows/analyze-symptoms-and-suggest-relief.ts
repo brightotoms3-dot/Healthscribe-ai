@@ -15,16 +15,16 @@ import {ai} from '@/ai/genkit';
 import {z} from 'genkit';
 
 const SymptomAnalysisInputSchema = z.object({
-  name: z.string().optional().describe('The user\'s full name (optional).'),
-  age: z.number().describe('The user\'s age.'),
-  gender: z.string().describe('The user\'s gender.'),
-  country: z.string().describe('The user\'s country (important for OTC availability).'),
-  pregnancyStatus: z.string().optional().describe('The user\'s pregnancy status (if applicable).'),
-  existingMedicalConditions: z.string().optional().describe('The user\'s existing medical conditions (e.g., asthma, diabetes, hypertension).'),
-  currentMedications: z.string().optional().describe('The user\'s current medications or supplements.'),
-  knownAllergies: z.string().optional().describe('The user\'s known allergies.'),
-  lifestyleFactors: z.string().optional().describe('The user\'s lifestyle factors (smoking, alcohol use, stress, sleep quality).'),
-  mainSymptom: z.string().describe('The user\'s main symptom(s).'),
+  name: z.string().optional().describe("The user's full name (optional)."),
+  age: z.coerce.number().optional().nullable().describe("The user's age."),
+  gender: z.string().describe("The user's gender."),
+  country: z.string().describe("The user's country (important for OTC availability)."),
+  pregnancyStatus: z.string().optional().describe("The user's pregnancy status (if applicable)."),
+  existingMedicalConditions: z.string().optional().describe("The user's existing medical conditions (e.g., asthma, diabetes, hypertension)."),
+  currentMedications: z.string().optional().describe("The user's current medications or supplements."),
+  knownAllergies: z.string().optional().describe("The user's known allergies."),
+  lifestyleFactors: z.string().optional().describe("The user's lifestyle factors (smoking, alcohol use, stress, sleep quality)."),
+  mainSymptom: z.string().describe("The user's main symptom(s)."),
   symptomOnset: z.string().describe('When the symptom started (date or duration).'),
   symptomFrequency: z.string().describe('How often the symptom occurs.'),
   symptomSeverity: z.string().describe('Severity of the symptom (mild / moderate / severe).'),
@@ -39,7 +39,14 @@ export type SymptomAnalysisInput = z.infer<typeof SymptomAnalysisInputSchema>;
 const SymptomAnalysisOutputSchema = z.object({
   personalSummary: z.string().describe('Summary of personal details provided by user.'),
   immediateRelief: z.string().describe('List of immediate relief actions.'),
-  symptomAnalysis: z.string().describe('Possible explanations for symptoms.'),
+  symptomAnalysis: z.object({
+    analysisText: z.string().describe('A formatted string with possible explanations for symptoms, presented as a numbered list. Example: "1. Possible cause #1 – brief explanation\n2. Possible cause #2 – brief explanation"'),
+    possibilities: z.array(z.object({
+      cause: z.string().describe('The name of the possible cause or condition.'),
+      likelihood: z.number().min(0).max(100).describe('A numerical percentage (0-100) representing the likelihood of this cause, based on the provided symptoms and information.'),
+      explanation: z.string().describe('A brief explanation for this possible cause.'),
+    })).describe('An array of objects, each representing a possible cause with its likelihood and a brief explanation. Provide 3-5 possibilities.'),
+  }).describe('The analysis of symptoms, including both a formatted text block and a structured array of possibilities with their likelihood.'),
   otcReliefOptions: z.string().describe('OTC medication suggestions.'),
   selfCareTips: z.string().describe('Self-care and ongoing tips.'),
   medicalCareAlert: z.string().describe('Guidance on when to seek medical care.'),
@@ -61,7 +68,7 @@ const prompt = ai.definePrompt({
 
 You are NOT a doctor. You must NOT diagnose diseases, prescribe prescription medications, or replace professional medical advice.
 
-Analyze the following user data and generate a report according to the specified format.
+Analyze the following user data and generate a report according to the specified format. For the symptom analysis, you must provide both a formatted text string and a structured array of possibilities.
 
 USER INFORMATION:
 - Name: {{name}}
@@ -100,9 +107,8 @@ OUTPUT FORMAT:
 
 🔍 SYMPTOM ANALYSIS:
 Based on the information provided, here are some possible explanations (not a diagnosis):
-1. Possible cause #1 – brief explanation
-2. Possible cause #2 – brief explanation
-3. Possible cause #3 – brief explanation
+- For the 'analysisText' field, generate a numbered list string.
+- For the 'possibilities' field, generate an array of objects, each with a 'cause', 'likelihood' (0-100), and 'explanation'. Ensure the likelihoods are plausible but not definitive.
 
 💊 OTC RELIEF OPTIONS:
 For symptom relief only (follow label instructions):
