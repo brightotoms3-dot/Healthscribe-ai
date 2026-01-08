@@ -92,6 +92,7 @@ export function SymptomForm({ onAnalysisComplete }: SymptomFormProps) {
     resolver: zodResolver(SymptomAnalysisFormSchema),
     defaultValues: {
       name: "",
+      age: undefined,
       gender: "",
       country: "",
       pregnancyStatus: "Not applicable",
@@ -172,7 +173,7 @@ export function SymptomForm({ onAnalysisComplete }: SymptomFormProps) {
               <FormField name="age" control={form.control} render={({ field }) => (
                   <FormItem>
                     <FormLabel>Age</FormLabel>
-                    <FormControl><Input type="number" placeholder="30" {...field} /></FormControl>
+                    <FormControl><Input type="number" placeholder="30" {...field} onChange={e => field.onChange(e.target.valueAsNumber)} /></FormControl>
                     <FormMessage />
                   </FormItem>
                 )}
