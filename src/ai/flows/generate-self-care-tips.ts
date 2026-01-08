@@ -45,18 +45,18 @@ const prompt = ai.definePrompt({
   prompt: `You are an AI assistant designed to provide personalized self-care tips to users based on their symptoms, medical history, and lifestyle.
 
   Consider the following information about the user:
-  {% if name %}Name: {{{name}}}{% endif %}
+  {{#if name}}Name: {{{name}}}{{/if}}
   Age: {{{age}}}
   Gender: {{{gender}}}
   Country: {{{country}}}
   Symptom Duration: {{{symptomDuration}}}
-  {% if keyRiskFactors %}Key Risk Factors: {{{keyRiskFactors}}}{% endif %}
+  {{#if keyRiskFactors}}Key Risk Factors: {{{keyRiskFactors}}}{{/if}}
   Main Symptom: {{{mainSymptom}}}
   Symptoms: {{{symptoms}}}
-  {% if medicalConditions %}Medical Conditions: {{{medicalConditions}}}{% endif %}
-  {% if medications %}Medications: {{{medications}}}{% endif %}
-  {% if allergies %}Allergies: {{{allergies}}}{% endif %}
-  {% if lifestyleFactors %}Lifestyle Factors: {{{lifestyleFactors}}}{% endif %}
+  {{#if medicalConditions}}Medical Conditions: {{{medicalConditions}}}{{/if}}
+  {{#if medications}}Medications: {{{medications}}}{{/if}}
+  {{#if allergies}}Allergies: {{{allergies}}}{{/if}}
+  {{#if lifestyleFactors}}Lifestyle Factors: {{{lifestyleFactors}}}{{/if}}
 
   Generate practical and actionable self-care tips that the user can implement to support their recovery and manage their symptoms. These tips should be tailored to the user's specific situation and consider their medical history, lifestyle factors, and any allergies or medications they are taking.
 
