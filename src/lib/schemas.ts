@@ -2,12 +2,13 @@ import { z } from "zod";
 
 export const SymptomAnalysisFormSchema = z.object({
   name: z.string().optional(),
-  age: z.coerce
-    .number({ invalid_type_error: "Age must be a number." })
-    .positive("Age must be a positive number.")
-    .max(120, "Please enter a valid age.")
-    .optional()
-    .nullable(),
+  age: z.union([
+    z.coerce
+      .number({ invalid_type_error: "Age must be a number." })
+      .positive("Age must be a positive number.")
+      .max(120, "Please enter a valid age."),
+    z.literal(""),
+  ]).optional().nullable(),
   gender: z.string().min(1, "Gender is required."),
   country: z.string().min(1, "Country is required."),
   pregnancyStatus: z.string().optional(),
