@@ -231,30 +231,28 @@ export function SymptomForm({ onAnalysisComplete }: SymptomFormProps) {
             <>
               <FormField name="existingMedicalConditions" control={form.control} render={({ field }) => (
                   <FormItem>
-                    <FormLabel>Existing Conditions</FormLabel>
+                    <FormLabel>Existing Conditions (Optional)</FormLabel>
                     <FormControl><Textarea placeholder="e.g., Asthma, Diabetes, Hypertension" {...field} /></FormControl>
-                    <FormDescription>List any diagnosed medical conditions.</FormDescription>
                   </FormItem>
                 )}
               />
               <FormField name="currentMedications" control={form.control} render={({ field }) => (
                   <FormItem>
-                    <FormLabel>Current Medications</FormLabel>
+                    <FormLabel>Current Medications (Optional)</FormLabel>
                     <FormControl><Textarea placeholder="e.g., Paracetamol, vitamins" {...field} /></FormControl>
-                    <FormDescription>Include prescriptions and supplements.</FormDescription>
                   </FormItem>
                 )}
               />
               <FormField name="knownAllergies" control={form.control} render={({ field }) => (
                   <FormItem>
-                    <FormLabel>Known Allergies</FormLabel>
+                    <FormLabel>Known Allergies (Optional)</FormLabel>
                     <FormControl><Textarea placeholder="e.g., Penicillin, peanuts" {...field} /></FormControl>
                   </FormItem>
                 )}
               />
               <FormField name="lifestyleFactors" control={form.control} render={({ field }) => (
                   <FormItem>
-                    <FormLabel>Lifestyle Factors</FormLabel>
+                    <FormLabel>Lifestyle Factors (Optional)</FormLabel>
                     <FormControl><Textarea placeholder="e.g., Smoking, stress, sleep quality" {...field} /></FormControl>
                   </FormItem>
                 )}
