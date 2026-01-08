@@ -9,7 +9,6 @@ import { HealthScribeIcon } from "@/components/icons";
 export default function Home() {
   const [analysis, setAnalysis] = useState<SymptomAnalysisOutput | null>(null);
   const [view, setView] = useState<"form" | "results">("form");
-  const [isResetting, setIsResetting] = useState(false);
   const [formKey, setFormKey] = useState(Date.now());
 
   const handleAnalysisComplete = (data: SymptomAnalysisOutput) => {
@@ -24,7 +23,7 @@ export default function Home() {
   };
 
   return (
-    <main className="flex min-h-svh flex-col items-center justify-center p-4 sm:p-6 md:p-8">
+    <main className="flex min-h-svh flex-col items-center justify-center bg-background p-4 sm:p-6 md:p-8">
       <div className="w-full max-w-4xl space-y-8">
         <header className="flex flex-col items-center text-center">
           <div className="mb-4 flex items-center gap-3 text-primary">
@@ -34,7 +33,7 @@ export default function Home() {
             </h1>
           </div>
           <p className="max-w-2xl text-muted-foreground md:text-lg">
-            Your AI-powered symptom analyzer for immediate relief guidance and
+            Your friendly AI symptom analyzer for immediate relief guidance and
             safe OTC options.
           </p>
         </header>

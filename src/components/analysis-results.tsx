@@ -78,7 +78,7 @@ export function AnalysisResults({ analysis, onStartOver }: AnalysisResultsProps)
           </CardContent>
         </Card>
 
-        <Accordion type="multiple" defaultValue={["relief", "analysis"]} className="w-full space-y-6">
+        <Accordion type="multiple" defaultValue={["relief", "analysis"]} className="w-full space-y-4">
           <Card>
              <AccordionItem value="relief" className="border-b-0">
                 <AccordionTrigger className="p-6 text-lg font-semibold text-primary hover:no-underline">
@@ -86,7 +86,7 @@ export function AnalysisResults({ analysis, onStartOver }: AnalysisResultsProps)
                     <Zap className="h-5 w-5" /> Immediate Relief
                    </div>
                 </AccordionTrigger>
-              <AccordionContent className="px-6 pb-6">
+              <AccordionContent className="px-6 pb-6 pt-0">
                 {renderList(immediateRelief, 'immediate relief')}
               </AccordionContent>
             </AccordionItem>
@@ -99,7 +99,7 @@ export function AnalysisResults({ analysis, onStartOver }: AnalysisResultsProps)
                      <Search className="h-5 w-5" /> Symptom Analysis
                    </div>
                 </AccordionTrigger>
-              <AccordionContent className="px-6 pb-6 space-y-4">
+              <AccordionContent className="space-y-4 px-6 pb-6 pt-0">
                 <SymptomLikelihoodChart data={symptomAnalysis.possibilities} />
                 {renderList(symptomAnalysis.analysisText, 'symptom analysis')}
               </AccordionContent>
@@ -113,7 +113,7 @@ export function AnalysisResults({ analysis, onStartOver }: AnalysisResultsProps)
                     <Pill className="h-5 w-5" /> OTC Relief Options
                    </div>
                 </AccordionTrigger>
-              <AccordionContent className="px-6 pb-6">
+              <AccordionContent className="px-6 pb-6 pt-0">
                 {renderList(otcReliefOptions, 'otc relief options')}
               </AccordionContent>
             </AccordionItem>
@@ -126,14 +126,14 @@ export function AnalysisResults({ analysis, onStartOver }: AnalysisResultsProps)
                      <Home className="h-5 w-5" /> Self-Care & Ongoing Tips
                    </div>
                 </AccordionTrigger>
-              <AccordionContent className="px-6 pb-6">
+              <AccordionContent className="px-6 pb-6 pt-0">
                 {renderList(selfCareTips, 'self-care')}
               </AccordionContent>
             </AccordionItem>
           </Card>
         </Accordion>
 
-        <Card className="border-destructive">
+        <Card className="border-destructive bg-destructive/5">
           <CardHeader>
             <CardTitle className="flex items-center gap-3 text-lg text-destructive">
               <AlertTriangle className="h-5 w-5" />
